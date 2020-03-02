@@ -11,6 +11,24 @@ logger = function(req){
   
 }
 
+
+
+#* @param df matrix of numeric energies weekly (double).
+#* @get /clasificar
+#* @description Clasifica clientes
+clasifica_clientes = function(req) {
+  input = req$postBody
+  output = summary(df)
+  cat(
+    "\n   Input is: ", input,
+    "\n   Results are: ", output
+  )
+  return(output)
+}
+
+
+
+
 #* @param txt A string value, the text to categorise.
 #* @get /textcat
 #* @description Perform language categorisation
@@ -19,6 +37,9 @@ guessLanguage = function(txt) {
   input = txt
   
   output = textcat(txt)
+  
+  
+  
   
   cat(
     "\n   Input: ", input,
