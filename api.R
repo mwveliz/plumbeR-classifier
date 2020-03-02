@@ -1,63 +1,25 @@
-# myfile.R
-#* Print to log
-#* @filter logger
-logger = function(req){
-  
-  cat("\n", as.character(Sys.time()), 
-      "\n", req$REQUEST_METHOD, req$PATH_INFO, 
-      "\n", req$HTTP_USER_AGENT, "@", req$REMOTE_ADDR)
-  
-  plumber::forward()
-  
-}
-
-
+# print to to log
+#logger = function(msg){
+#  cat("\t", as.character(Sys.time()), 
+#      "\t", msg)
+#}
 
 #* @param df matrix of numeric energies weekly (double).
-#* @get /clasificar
+#* @post /clasificar
 #* @description Clasifica clientes
 clasifica_clientes = function(req) {
-  input = req$postBody
-  output = summary(df)
-  cat(
-    "\n   Input is: ", input,
-    "\n   Results are: ", output
-  )
+  input = jsonlite::fromJSON(req$postBody)
+  print(input)
+  #logger("las col son:")
+  #logger(names(input))
+  output = summary(input)
+  print("Dataset de entrada:")
+  input_hux <- 
+    hux(input) %>% 
+    add_colnames() %>% 
+    set_bold(row = 1, col = everywhere, value = TRUE) %>% 
+    set_all_borders(TRUE)
+  print_screen(input_hux)
+
   return(output)
-}
-
-
-
-
-#* @param txt A string value, the text to categorise.
-#* @get /textcat
-#* @description Perform language categorisation
-guessLanguage = function(txt) {
-  
-  input = txt
-  
-  output = textcat(txt)
-  
-  
-  
-  
-  cat(
-    "\n   Input: ", input,
-    "\n   Most likely: ", output
-  )
-  
-  return(output)
-  
-}
-
-
-#* @get /mean
-normalMean <- function(samples=10){
-  data <- rnorm(samples)
-  mean(data)
-}
-
-#* @post /sum
-addTwo <- function(a, b){
-  as.numeric(a) + as.numeric(b)
 }

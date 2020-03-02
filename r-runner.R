@@ -2,6 +2,11 @@
 
 library(plumber)
 library(textcat)
+library(jsonlite)
+library(urltools)
+library(huxtable)
+library(magrittr)
+
 #library (rio)
 #library (dplyr)
 #library (dbplyr)
